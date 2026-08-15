@@ -118,10 +118,7 @@ transform = transforms.ToTensor()
 
 Therefore, image pixels remain in the range
 
-$$
-[0,1].
-
-$$
+$$[0,1].$$
 
 No additional normalization is applied.
 
@@ -205,10 +202,7 @@ The recorded spike tensors have the form:
 
 For training, the implementation sums the output-layer membrane potentials over time:
 
-$$
-O = \sum_{t=1}^{T} U_3[t]
-
-$$
+$$O = \sum_{t=1}^{T} U_3[t]$$
 
 In code:
 
@@ -232,10 +226,7 @@ criterion = nn.CrossEntropyLoss()
 
 The predicted class is:
 
-$$
-\hat{y} = \arg\max_c O_c
-
-$$
+$$\hat{y} = \arg\max_c O_c$$
 
 ---
 
@@ -286,10 +277,7 @@ spk3_rec
 
 The firing rate is computed as the mean of each binary spike tensor:
 
-$$
-FR = \frac{\text{number of spikes}}{\text{number of neuron-time events}}
-
-$$
+$$FR = \frac{\text{number of spikes}}{\text{number of neuron-time events}}$$
 
 The script reports firing rates for:
 
@@ -354,17 +342,11 @@ After training, the best checkpoint is reloaded and evaluated again.
 
 The main test accuracy uses summed output membrane potentials:
 
-$$
-O = \sum_t U_3[t]
-
-$$
+$$O = \sum_t U_3[t]$$
 
 The predicted class is obtained from:
 
-$$
-\arg\max_c O_c
-
-$$
+$$\arg\max_c O_c$$
 
 This is the same criterion used during training.
 
@@ -376,17 +358,11 @@ The implementation additionally evaluates classification using only the number o
 
 For each class:
 
-$$
-S_c = \sum_{t=1}^{T} s_c[t]
-
-$$
+$$S_c = \sum_{t=1}^{T} s_c[t]$$
 
 The predicted class becomes:
 
-$$
-\hat{y} = \arg\max_c S_c
-
-$$
+$$\hat{y} = \arg\max_c S_c$$
 
 In code:
 
@@ -501,25 +477,16 @@ The important distinction is that this model uses the standard `snnTorch` LIF dy
 
 The overall model can be summarized as:
 
-$$
-x \rightarrow \mathrm{FC}_1 \rightarrow \mathrm{LIF}_1 \rightarrow \mathrm{FC}_2 \rightarrow \mathrm{LIF}_2 \rightarrow \mathrm{FC}_3 \rightarrow \mathrm{LIF}_3
-
-$$
+$$x \rightarrow \mathrm{FC}_1 \rightarrow \mathrm{LIF}_1 \rightarrow \mathrm{FC}_2 \rightarrow \mathrm{LIF}_2 \rightarrow \mathrm{FC}_3 \rightarrow \mathrm{LIF}_3$$
 
 The network is trained using temporally summed output membrane potentials:
 
-$$
-\boxed{O_c = \sum_{t=1}^{T} U_c[t]}
-
-$$
+$$\boxed{O_c = \sum_{t=1}^{T} U_c[t]}$$
 
 and is additionally evaluated using output spike counts:
 
-$$
-\boxed{
+$$\boxed{
 S_c = \sum_{t=1}^{T} s_c[t]
-}
-
-$$
+}$$
 
 This provides a straightforward conventional SNN baseline for comparison with the MTJ-based neuron models.
