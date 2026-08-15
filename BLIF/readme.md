@@ -380,98 +380,42 @@ This provides a second evaluation metric that uses purely spiking output activit
 
 ---
 
-## Installation
+## Final Results
 
-Create a Conda environment:
-
-```bash
-conda create -n mnist_snn python=3.10 -y
-conda activate mnist_snn
-```
-
-Install the required packages:
-
-```bash
-pip install torch torchvision snntorch
-```
-
-Optional Jupyter support:
-
-```bash
-pip install jupyter ipykernel matplotlib
-```
-
----
-
-## Running
-
-Save the script as, for example:
+The final trained BLIF model achieved:
 
 ```text
-mnist_lif_mlp.py
+====================================================
+Training complete
+====================================================
+Best Test Accuracy: 96.93%
+
+Final Test Accuracy: 96.93%
+
+Final output firing rates:
+Layer 1 = 0.0874
+Layer 2 = 0.0492
+Layer 3 = 0.0872
+
+Spike-count Test Accuracy: 97.12%
+
+Model saved as mnist_snn_mlp.pth
 ```
 
-and run:
+### Performance Summary
 
-```bash
-python mnist_lif_mlp.py
-```
+| Metric | Result |
+|---|---:|
+| Best Test Accuracy | 96.93% |
+| Final Test Accuracy | 96.93% |
+| Spike-count Test Accuracy | 97.12% |
+| Layer 1 Firing Rate | 0.0874 |
+| Layer 2 Firing Rate | 0.0492 |
+| Layer 3 Firing Rate | 0.0872 |
 
-The MNIST dataset will be downloaded automatically if necessary.
+The spike-count evaluation gives the highest reported accuracy:
 
----
-
-## Output
-
-During training, the script reports statistics such as:
-
-```text
-Epoch 1 | Batch    0/938 | Loss 2.3026 | Spike FR: 0.100, 0.050, 0.020 | Pulse Rate: 0.500, 0.450, 0.400
-```
-
-After each epoch it prints:
-
-```text
----------------- TRAIN ----------------
-
-Loss:
-Accuracy:
-
-Output spike firing rates:
-Layer 1:
-Layer 2:
-Layer 3:
-
-Hard pulse rates:
-Layer 1:
-Layer 2:
-Layer 3:
-
----------------- TEST ----------------
-
-Accuracy:
-
-Output spike firing rates:
-Layer 1:
-Layer 2:
-Layer 3:
-
-Hard pulse rates:
-Layer 1:
-Layer 2:
-Layer 3:
-```
-
-The best checkpoint is saved as:
-
-```text
-best_hard_mtjlif_mnist.pth
-```
-
----
-
-
-
+$$\boxed{97.12\%}$$
 
 ## Main Hyperparameters
 
@@ -521,8 +465,6 @@ $$\boxed{O_c = \sum_{t=1}^{T} U_c[t]}$$
 
 and is additionally evaluated using output spike counts:
 
-$$\boxed{
-S_c = \sum_{t=1}^{T} s_c[t]
-}$$
+$$\boxed{ S_c = \sum_{t=1}^{T} s_c[t] }$$
 
 This provides a straightforward conventional SNN baseline for comparison with the MTJ-based neuron models.
