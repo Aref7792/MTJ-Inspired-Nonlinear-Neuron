@@ -66,13 +66,7 @@ time steps.
 
 The forward pulse is binary:
 
-\[
-p(z)=
-\begin{cases}
-1, & z>0,\\
-0, & z\le 0.
-\end{cases}
-\]
+$$p(z)= \begin{cases} 1, & z>0,\\ 0, & z\le 0. \end{cases}$$
 
 Therefore:
 
@@ -89,25 +83,15 @@ A hard threshold is not differentiable, so the implementation uses a straight-th
 
 The soft surrogate is
 
-\[
-s(z)=\sigma(\alpha z)
-=
-\frac{1}{1+\exp(-\alpha z)}.
-\]
+$$s(z)=\sigma(\alpha z) = \frac{1}{1+\exp(-\alpha z)}.$$
 
 The hard value is
 
-\[
-h(z)=\mathbb{1}[z>0].
-\]
+$$h(z)=\mathbb{1}[z>0].$$
 
 The implemented pulse is
 
-\[
-p
-=
-h+s-\operatorname{detach}(s).
-\]
+$$p = h+s-\operatorname{detach}(s).$$
 
 In PyTorch:
 
@@ -128,9 +112,7 @@ soft - soft.detach() = 0
 
 numerically in the forward pass,
 
-\[
-p=h.
-\]
+$$p=h.$$
 
 So the pulse is exactly binary.
 
@@ -144,7 +126,7 @@ The hyperparameter controlling the surrogate steepness is:
 PULSE_SURROGATE_ALPHA = 5.0
 ```
 
-Larger values make the surrogate gradient more concentrated near \(z=0\).
+Larger values make the surrogate gradient more concentrated near $z=0$.
 
 ---
 
@@ -154,42 +136,23 @@ Pulse existence and pulse strength are handled separately.
 
 The pulse exists only if:
 
-\[
-z>0.
-\]
+$$z>0.$$
 
-For pulse strength, the positive part of \(z\) is used:
+For pulse strength, the positive part of $z$ is used:
 
-\[
-z_+ = \max(z,0).
-\]
+$$z_+ = \max(z,0).$$
 
 The normalized current strength is
 
-\[
-r(z)
-=
-1-\exp(-z_+).
-\]
+$$r(z) = 1-\exp(-z_+).$$
 
 This gives:
 
-\[
-0\le r(z)<1.
-\]
+$$0\le r(z)<1.$$
 
 The physical current density is then
 
-\[
-J
-=
-J_{\min}
-+
-r(z)
-\left(
-J_{\max}-J_{\min}
-\right).
-\]
+$$J = J_{\min} + r(z) \left( J_{\max}-J_{\min} \right).$$
 
 The code uses:
 
@@ -200,12 +163,7 @@ J_MAX = 1e12
 
 so
 
-\[
-10^{11}
-\le J \le
-10^{12}
-\quad \mathrm{A/m^2}.
-\]
+$$10^{11} \le J \le 10^{12} \quad \mathrm{A/m^2}$$
 
 The `z -> J` conversion is a neural-to-device interface mapping used by the implementation.
 
@@ -215,20 +173,11 @@ The `z -> J` conversion is a neural-to-device interface mapping used by the impl
 
 The rise-time constant is modeled as:
 
-\[
-\tau_r(J)
-=
-386.98
-\left(
-\frac{J}{10^{11}}
-\right)^{-1.223}
-+
-8.88.
-\]
+$$\tau_r(J) = 386.98 \left( \frac{J}{10^{11}} \right)^{-1.223} + 8.88.$$
 
 The units are picoseconds.
 
-As the current density increases, \(\tau_r\) decreases, producing faster magnetization evolution.
+As the current density increases, $\tau_r$ decreases, producing faster magnetization evolution.
 
 ---
 
@@ -236,20 +185,7 @@ As the current density increases, \(\tau_r\) decreases, producing faster magneti
 
 When a pulse exists, the neuron follows the MTJ integration equation:
 
-\[
-m_{\mathrm{int}}
-=
-A(J)
-\tanh
-\left[
-\frac{T_p}{\tau_r(J)}
-+
-\tanh^{-1}
-\left(
-\frac{m}{A(J)}
-\right)
-\right].
-\]
+$$m_{\mathrm{int}} = A(J) \tanh \left[ \frac{T_p}{\tau_r(J)} + \tanh^{-1} \left( \frac{m}{A(J)} \right) \right].$$
 
 The pulse width is fixed:
 
@@ -267,28 +203,11 @@ When no pulse exists, the neuron follows the nonlinear leakage equation.
 
 First,
 
-\[
-B
-=
-\exp
-\left(
--\frac{\Delta t}{\tau_l}
-\right).
-\]
+$$B = \exp \left( -\frac{\Delta t}{\tau_l} \right).$$
 
 Then,
 
-\[
-m_{\mathrm{leak}}
-=
-\frac{
-mB
-}{
-\sqrt{
-1-m^2(1-B^2)
-}
-}.
-\]
+$$m_{\mathrm{leak}} = \frac{ mB }{ \sqrt{ 1-m^2(1-B^2) } }.$$
 
 The default timing parameters are:
 
@@ -303,39 +222,25 @@ TAU_LEAK_PS = 503.8
 
 The state update is:
 
-\[
-m_{\mathrm{new}}
-=
-p\,m_{\mathrm{int}}
-+
-(1-p)m_{\mathrm{leak}}.
-\]
+$$m_{\mathrm{new}} = p\,m_{\mathrm{int}} + (1-p)m_{\mathrm{leak}}$$
 
-Because \(p\in\{0,1\}\) in the forward pass, this is not a fractional mixture.
+Because $p\in\{0,1\}$ in the forward pass, this is not a fractional mixture.
 
 If
 
-\[
-p=1,
-\]
+$$p=1,$$
 
 then
 
-\[
-m_{\mathrm{new}}=m_{\mathrm{int}}.
-\]
+$$m_{\mathrm{new}}=m_{\mathrm{int}}$$
 
 If
 
-\[
-p=0,
-\]
+$$p=0,$$
 
 then
 
-\[
-m_{\mathrm{new}}=m_{\mathrm{leak}}.
-\]
+$$m_{\mathrm{new}}=m_{\mathrm{leak}}$$
 
 So the model selects exactly one physical branch per neuron per time step.
 
@@ -343,7 +248,7 @@ So the model selects exactly one physical branch per neuron per time step.
 
 ## Output Spike Generation
 
-The magnetization state \(m_z\) acts as the neuron state.
+The magnetization state $m_z$ acts as the neuron state.
 
 The firing threshold is:
 
@@ -353,9 +258,7 @@ THRESHOLD = 0.8
 
 An output spike is generated from:
 
-\[
-m_z-\theta,
-\]
+$$m_z-\theta,$$
 
 using the snnTorch fast-sigmoid surrogate:
 
@@ -381,22 +284,13 @@ The state is preserved and continues evolving according to either the integratio
 
 The output layer contains 10 spiking neurons corresponding to the 10 MNIST classes.
 
-The spike count for class \(c\) is:
+The spike count for class $c$ is:
 
-\[
-S_c
-=
-\sum_{t=1}^{T}
-s_c[t].
-\]
+$$S_c = \sum_{t=1}^{T} s_c[t]$$
 
 The predicted class is:
 
-\[
-\hat{y}
-=
-\arg\max_c S_c.
-\]
+$$\hat{y} = \arg\max_c S_c$$
 
 Training also uses the accumulated output spike counts:
 
@@ -453,9 +347,7 @@ transform = transforms.ToTensor()
 
 so the input pixels remain in:
 
-\[
-[0,1].
-\]
+$$[0,1].$$
 
 ---
 
@@ -481,9 +373,7 @@ In addition to output-spike firing rate, this implementation explicitly reports 
 
 The pulse rate measures the fraction of neuron-time events for which:
 
-\[
-z>0.
-\]
+$$z>0.$$
 
 The reported quantities are:
 
@@ -610,8 +500,8 @@ best_hard_mtjlif_mnist.pth
 | `PULSE_WIDTH_PS` | 30 ps | Fixed integration pulse width |
 | `DT_PS` | 100 ps | Leak interval |
 | `TAU_LEAK_PS` | 503.8 ps | Leakage time constant |
-| `J_MIN` | \(10^{11}\) A/m² | Minimum current density |
-| `J_MAX` | \(10^{12}\) A/m² | Maximum current density |
+| `J_MIN` | $10^{11}$ A/m² | Minimum current density |
+| `J_MAX` | $10^{12}$ A/m² | Maximum current density |
 | `PULSE_SURROGATE_ALPHA` | 5.0 | STE sigmoid steepness |
 | `GRAD_CLIP` | 1.0 | Maximum gradient norm |
 
@@ -623,29 +513,13 @@ The important distinction between this implementation and a soft integrate/leak 
 
 ### Soft formulation
 
-\[
-m_{\mathrm{new}}
-=
-d\,m_{\mathrm{int}}
-+
-(1-d)m_{\mathrm{leak}},
-\qquad
-0<d<1.
-\]
+$$m_{\mathrm{new}} = d\,m_{\mathrm{int}} + (1-d)m_{\mathrm{leak}}, \qquad 0<d<1.$$
 
 The neuron can partially integrate and partially leak at the same time.
 
 ### Hard formulation
 
-\[
-m_{\mathrm{new}}
-=
-p\,m_{\mathrm{int}}
-+
-(1-p)m_{\mathrm{leak}},
-\qquad
-p\in\{0,1\}.
-\]
+$$m_{\mathrm{new}} = p\,m_{\mathrm{int}} + (1-p)m_{\mathrm{leak}}, \qquad p\in\{0,1\}.$$
 
 The neuron selects exactly one branch in the forward pass.
 
@@ -657,44 +531,20 @@ The sigmoid is used only to approximate the gradient of this hard pulse gate dur
 
 The neuron can be summarized as:
 
-\[
-z_t
-\rightarrow
-p_t=H(z_t)
-\]
+$$z_t \rightarrow p_t=H(z_t)$$
 
 with the STE used only during backpropagation.
 
 For a positive pulse:
 
-\[
-z_t>0
-\Rightarrow
-J_t=f(z_t)
-\Rightarrow
-m_{t+1}
-=
-f_{\mathrm{integrate}}
-(m_t,J_t).
-\]
+$$z_t>0 \Rightarrow J_t=f(z_t) \Rightarrow m_{t+1} = f_{\mathrm{integrate}} (m_t,J_t).$$
 
 For no pulse:
 
-\[
-z_t\le0
-\Rightarrow
-m_{t+1}
-=
-f_{\mathrm{leak}}
-(m_t).
-\]
+$$z_t\le0 \Rightarrow m_{t+1} = f_{\mathrm{leak}}(m_t)$$
 
 Finally:
 
-\[
-s_t
-=
-H(m_t-\theta).
-\]
+$$s_t = H(m_t-\theta)$$
 
 This provides a hard event-driven MTJ-inspired neuron model while retaining trainability through surrogate gradients.
