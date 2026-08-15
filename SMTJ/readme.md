@@ -365,112 +365,32 @@ This enables direct comparison between:
 
 ---
 
-## Installation
+## Final Results
 
-Create a Conda environment:
-
-```bash
-conda create -n mnist_snn python=3.10 -y
-conda activate mnist_snn
-```
-
-Install the required packages:
-
-```bash
-pip install torch torchvision snntorch
-```
-
-Optional Jupyter support:
-
-```bash
-pip install jupyter ipykernel matplotlib
-```
-
----
-
-## Running
-
-Save the implementation as, for example:
+The final trained SMTJ model achieved:
 
 ```text
-mnist_mtj_parametric_gate.py
+Best Test Accuracy: 96.99%
+
+Final Test Accuracy: 96.99%
+
+Final firing rates:
+Layer 1 = 0.2233
+Layer 2 = 0.4341
+Layer 3 = 0.1614
 ```
 
-and run:
+### Performance Summary
 
-```bash
-python mnist_mtj_parametric_gate.py
-```
+| Metric | Result |
+|---|---:|
+| Best Test Accuracy | 96.99% |
+| Final Test Accuracy | 96.99% |
+| Layer 1 Firing Rate | 0.2233 |
+| Layer 2 Firing Rate | 0.4341 |
+| Layer 3 Firing Rate | 0.1614 |
 
-MNIST will be downloaded automatically if it is not already available.
-
----
-
-## Output
-
-During training, the script prints batch-level information such as:
-
-```text
-Epoch 1 | Batch    0/938 | Loss 2.3026 | FR1 0.1234 | FR2 0.0567 | FR3 0.0123
-```
-
-At the end of each epoch it reports:
-
-```text
-Train Loss
-Train Accuracy
-Test Accuracy
-
-Training firing rates:
-Layer 1
-Layer 2
-Layer 3
-
-Test firing rates:
-Layer 1
-Layer 2
-Layer 3
-```
-
-The best model is saved as:
-
-```text
-best_mtjlif_mnist.pth
-```
-
----
-
-## Recommended Gate-Slope Experiment
-
-To study the transition from smooth to threshold-like integrate/leak behavior, vary only:
-
-```python
-GATE_SIGMOID_SLOPE
-```
-
-while leaving all other settings unchanged.
-
-A useful sweep is:
-
-```text
-1
-5
-10
-25
-50
-```
-
-For each value, record:
-
-- best test accuracy,
-- final test accuracy,
-- Layer 1 firing rate,
-- Layer 2 firing rate,
-- Layer 3 firing rate.
-
-This isolates the effect of the integrate/leak transition sharpness without changing the original physical-drive mapping.
-
----
+The final classification accuracy is: $$96.99$$
 
 ## Main Hyperparameters
 
@@ -491,22 +411,3 @@ This isolates the effect of the integrate/leak transition sharpness without chan
 | `GATE_SIGMOID_THRESHOLD` | 0.0 | Integrate/leak transition point |
 | `GRAD_CLIP` | 1.0 | Maximum gradient norm |
 
----
-
-## Summary
-
-The model uses two distinct nonlinear mappings:
-
-$$\boxed{ d(z)=\sigma(z) }$$
-
-for physical pulse strength, and
-
-$$\boxed{ g(z)=\sigma(k(z-z_0)) }$$
-
-for integrate/leak selection.
-
-The complete neuron update is therefore
-
-$$\boxed{ m_{t+1} = g(z_t) \,f_{\mathrm{integrate}} \left( m_t,d(z_t) \right) + \left[ 1-g(z_t) \right] f_{\mathrm{leak}} (m_t) }$$
-
-This structure allows the integrate/leak switching behavior to be made progressively sharper without modifying the original drive, current-density mapping, pulse-width mapping, or MTJ device equations.
