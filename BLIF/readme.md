@@ -414,9 +414,8 @@ Model saved as mnist_snn_mlp.pth
 | Layer 3 Firing Rate | 0.0872 |
 
 The spike-count evaluation gives the highest reported accuracy:
-
 $$97.12\%$$
-
+----
 ## Main Hyperparameters
 
 | Parameter | Default | Meaning |
