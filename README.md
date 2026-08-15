@@ -51,17 +51,17 @@ Run each implementation from its corresponding folder, for example:
 
 ```bash
 cd BLIF
-python mnist_lif_mlp.py
+python blif.py
 ```
 
 ```bash
 cd SMTJ
-python mnist_mtj_soft.py
+python smtj.py
 ```
 
 ```bash
 cd HMTJ
-python mnist_mtj_hard.py
+python hmtj.py
 ```
 
 ## Results
