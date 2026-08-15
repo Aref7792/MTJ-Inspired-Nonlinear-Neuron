@@ -77,10 +77,7 @@ The parameter $\beta$ controls membrane-potential decay between time steps.
 
 Conceptually, a discrete-time LIF neuron follows a recurrence of the form
 
-$$
-U[t+1] = \beta U[t] + I[t+1] - R[t]
-
-$$
+$$U[t+1] = \beta U[t] + I[t+1] - R[t]$$
 
 where:
 
