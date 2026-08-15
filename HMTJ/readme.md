@@ -89,7 +89,6 @@ The hard value is
 
 $$h(z)=\mathbb{1}[z>0].$$
 
-
 In PyTorch:
 
 ```python
@@ -395,95 +394,44 @@ in general.
 
 ---
 
-## Installation
+## Final Results
 
-Create a Conda environment:
-
-```bash
-conda create -n mnist_snn python=3.10 -y
-conda activate mnist_snn
-```
-
-Install the required packages:
-
-```bash
-pip install torch torchvision snntorch
-```
-
-Optional notebook support:
-
-```bash
-pip install jupyter ipykernel matplotlib
-```
-
----
-
-## Running
-
-Save the Python script as, for example:
+The final trained HMTJ model achieved:
 
 ```text
-mnist_hard_mtj_snn.py
+Best Test Accuracy: 95.25%
+
+Final Test Accuracy: 95.25%
+
+Final output firing rates:
+Layer 1 = 0.3475
+Layer 2 = 0.3402
+Layer 3 = 0.1956
+
+Final hard pulse rates:
+Layer 1 = 0.3713
+Layer 2 = 0.3885
+Layer 3 = 0.3050
 ```
 
-Run:
+### Performance Summary
 
-```bash
-python mnist_hard_mtj_snn.py
-```
+| Metric | Result |
+|---|---:|
+| Best Test Accuracy | 95.25% |
+| Final Test Accuracy | 95.25% |
+| Layer 1 Firing Rate | 0.3475 |
+| Layer 2 Firing Rate | 0.3402 |
+| Layer 3 Firing Rate | 0.1956 |
+| Layer 1 Hard Pulse Rate | 0.3713 |
+| Layer 2 Hard Pulse Rate | 0.3885 |
+| Layer 3 Hard Pulse Rate | 0.3050 |
 
-MNIST is downloaded automatically if needed.
+The final classification accuracy is:
 
----
+$$\boxed{95.25\%}$$
 
-## Output
-
-During training, the script reports statistics such as:
-
-```text
-Epoch 1 | Batch    0/938 | Loss 2.3026 | Spike FR: 0.100, 0.050, 0.020 | Pulse Rate: 0.500, 0.450, 0.400
-```
-
-After each epoch it prints:
-
-```text
----------------- TRAIN ----------------
-
-Loss:
-Accuracy:
-
-Output spike firing rates:
-Layer 1:
-Layer 2:
-Layer 3:
-
-Hard pulse rates:
-Layer 1:
-Layer 2:
-Layer 3:
-
----------------- TEST ----------------
-
-Accuracy:
-
-Output spike firing rates:
-Layer 1:
-Layer 2:
-Layer 3:
-
-Hard pulse rates:
-Layer 1:
-Layer 2:
-Layer 3:
-```
-
-The best checkpoint is saved as:
-
-```text
-best_hard_mtjlif_mnist.pth
-```
-
----
+The hard pulse rates are consistently higher than the output firing rates, showing that a pulse event does not necessarily produce an output spike.
 
 ## Main Hyperparameters
 
@@ -502,46 +450,3 @@ best_hard_mtjlif_mnist.pth
 | `PULSE_SURROGATE_ALPHA` | 5.0 | STE sigmoid steepness |
 | `GRAD_CLIP` | 1.0 | Maximum gradient norm |
 
----
-
-## Hard vs. Soft MTJ Neuron
-
-The important distinction between this implementation and a soft integrate/leak formulation is:
-
-### Soft formulation
-
-$$m_{\mathrm{new}} = d\,m_{\mathrm{int}} + (1-d)m_{\mathrm{leak}}, \qquad 0<d<1.$$
-
-The neuron can partially integrate and partially leak at the same time.
-
-### Hard formulation
-
-$$m_{\mathrm{new}} = p\,m_{\mathrm{int}} + (1-p)m_{\mathrm{leak}}, \qquad p\in\{0,1\}.$$
-
-The neuron selects exactly one branch in the forward pass.
-
-The sigmoid is used only to approximate the gradient of this hard pulse gate during optimization.
-
----
-
-## Summary
-
-The neuron can be summarized as:
-
-$$z_t \rightarrow p_t=H(z_t)$$
-
-with the STE used only during backpropagation.
-
-For a positive pulse:
-
-$$z_t>0 \Rightarrow J_t=f(z_t) \Rightarrow m_{t+1} = f_{\mathrm{integrate}} (m_t,J_t).$$
-
-For no pulse:
-
-$$z_t\le0 \Rightarrow m_{t+1} = f_{\mathrm{leak}}(m_t)$$
-
-Finally:
-
-$$s_t = H(m_t-\theta)$$
-
-This provides a hard event-driven MTJ-inspired neuron model while retaining trainability through surrogate gradients.
