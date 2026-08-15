@@ -415,7 +415,7 @@ Model saved as mnist_snn_mlp.pth
 
 The spike-count evaluation gives the highest reported accuracy:
 
-$$\boxed{97.12\%}$$
+$$97.12\%$$
 
 ## Main Hyperparameters
 
@@ -430,41 +430,4 @@ $$\boxed{97.12\%}$$
 
 ---
 
-## Comparison Baseline
 
-This implementation is intended to serve as the conventional LIF baseline for comparison against alternative neuron models.
-
-Because the architecture is kept fixed,
-
-```text
-784 -> 128 -> 64 -> 10
-```
-
-differences in:
-
-- classification accuracy,
-- spike-count accuracy,
-- firing rate,
-- temporal activity,
-
-can be compared more directly with MTJ-inspired neuron implementations.
-
-The important distinction is that this model uses the standard `snnTorch` LIF dynamics rather than the nonlinear MTJ integration and leakage equations.
-
----
-
-## Summary
-
-The overall model can be summarized as:
-
-$$x \rightarrow \mathrm{FC}_1 \rightarrow \mathrm{LIF}_1 \rightarrow \mathrm{FC}_2 \rightarrow \mathrm{LIF}_2 \rightarrow \mathrm{FC}_3 \rightarrow \mathrm{LIF}_3$$
-
-The network is trained using temporally summed output membrane potentials:
-
-$$\boxed{O_c = \sum_{t=1}^{T} U_c[t]}$$
-
-and is additionally evaluated using output spike counts:
-
-$$\boxed{ S_c = \sum_{t=1}^{T} s_c[t] }$$
-
-This provides a straightforward conventional SNN baseline for comparison with the MTJ-based neuron models.
