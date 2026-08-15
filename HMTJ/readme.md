@@ -428,8 +428,7 @@ Layer 3 = 0.3050
 | Layer 3 Hard Pulse Rate | 0.3050 |
 
 The final classification accuracy is:
-
-$$\boxed{95.25\%}$$
+$$95.25$$
 
 The hard pulse rates are consistently higher than the output firing rates, showing that a pulse event does not necessarily produce an output spike.
 
