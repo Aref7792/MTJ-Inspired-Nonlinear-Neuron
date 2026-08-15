@@ -421,21 +421,57 @@ The MNIST dataset will be downloaded automatically if necessary.
 
 ---
 
-## Saved Models
+## Output
 
-The best checkpoint during training is:
+During training, the script reports statistics such as:
 
 ```text
-best_mnist_lif_mlp.pth
+Epoch 1 | Batch    0/938 | Loss 2.3026 | Spike FR: 0.100, 0.050, 0.020 | Pulse Rate: 0.500, 0.450, 0.400
 ```
 
-The final model is also saved as:
+After each epoch it prints:
 
 ```text
-mnist_snn_mlp.pth
+---------------- TRAIN ----------------
+
+Loss:
+Accuracy:
+
+Output spike firing rates:
+Layer 1:
+Layer 2:
+Layer 3:
+
+Hard pulse rates:
+Layer 1:
+Layer 2:
+Layer 3:
+
+---------------- TEST ----------------
+
+Accuracy:
+
+Output spike firing rates:
+Layer 1:
+Layer 2:
+Layer 3:
+
+Hard pulse rates:
+Layer 1:
+Layer 2:
+Layer 3:
+```
+
+The best checkpoint is saved as:
+
+```text
+best_hard_mtjlif_mnist.pth
 ```
 
 ---
+
+
+
 
 ## Main Hyperparameters
 
