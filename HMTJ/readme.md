@@ -89,9 +89,6 @@ The hard value is
 
 $$h(z)=\mathbb{1}[z>0].$$
 
-The implemented pulse is
-
-$$p = h+s-\operatorname{detach}(s).$$
 
 In PyTorch:
 
