@@ -12,7 +12,7 @@ The implementation preserves the original smooth drive calculation and introduce
 
 ## Main Idea
 
-Each MTJ neuron uses two different quantities derived from the synaptic input \(z\):
+Each MTJ neuron uses two different quantities derived from the synaptic input $z$:
 
 1. A **normal sigmoid drive** that controls pulse strength.
 2. A **parametric sigmoid gate** that determines how strongly the neuron follows integration versus leakage.
@@ -66,19 +66,13 @@ time steps.
 
 The original neural-input-to-drive mapping is kept unchanged:
 
-\[
-d(z)
-=
-\sigma(\alpha z)
-=
-\frac{1}{1+\exp(-\alpha z)}
-\]
+$$d(z) = \sigma(\alpha z) = \frac{1}{1+\exp(-\alpha z)}$$
 
 where:
 
-- \(z\) is the synaptic input,
-- \(\alpha\) is `input_scale`,
-- \(d(z)\in[0,1]\) is the normalized drive.
+- $z$ is the synaptic input,
+- $\alpha$ is `input_scale`,
+- $d(z)\in[0,1]$ is the normalized drive.
 
 In the supplied configuration:
 
@@ -88,9 +82,7 @@ input_scale = 1.0
 
 so
 
-\[
-d(z)=\sigma(z).
-\]
+$$d(z)=\sigma(z).$$
 
 The drive is used to determine:
 
@@ -106,17 +98,7 @@ It is **not** the integrate/leak selector in this version.
 
 A second sigmoid is introduced only for deciding whether the state update should favor integration or leakage:
 
-\[
-g(z)
-=
-\sigma\left(
-k(z-z_0)
-\right)
-=
-\frac{1}{
-1+\exp[-k(z-z_0)]
-}.
-\]
+$$g(z) = \sigma\left( k(z-z_0) \right) = \frac{1}{ 1+\exp[-k(z-z_0)] }.$$
 
 The parameters are:
 
@@ -127,27 +109,16 @@ GATE_SIGMOID_THRESHOLD = 0.0
 
 where:
 
-- \(k\) is `GATE_SIGMOID_SLOPE`,
-- \(z_0\) is `GATE_SIGMOID_THRESHOLD`.
+- $k$ is `GATE_SIGMOID_SLOPE`,
+- $z_0$ is `GATE_SIGMOID_THRESHOLD`.
 
-A larger \(k\) produces a sharper transition:
+A larger $k$ produces a sharper transition:
 
-\[
-k \uparrow
-\quad\Rightarrow\quad
-g(z)
-\text{ approaches a hard threshold.}
-\]
+$$k \uparrow \quad\Rightarrow\quad g(z) \text{ approaches a hard threshold.}$$
 
 Approximately,
 
-\[
-g(z)\approx
-\begin{cases}
-0, & z<z_0,\\
-1, & z>z_0.
-\end{cases}
-\]
+$$g(z)\approx \begin{cases} 0, & z<z_0,\\ 1, & z>z_0. \end{cases}$$
 
 Useful values for a slope study include:
 
@@ -165,16 +136,7 @@ Useful values for a slope study include:
 
 The normal sigmoid drive is mapped to the physical current-density range:
 
-\[
-J
-=
-J_{\min}
-+
-d
-\left(
-J_{\max}-J_{\min}
-\right).
-\]
+$$J = J_{\min} + d \left( J_{\max}-J_{\min} \right).$$
 
 The implementation uses:
 
@@ -185,13 +147,7 @@ J_MAX = 1e12
 
 therefore
 
-\[
-10^{11}
-\le J \le
-10^{12}
-\quad
-\mathrm{A/m^2}.
-\]
+$$10^{11} \le J \le 10^{12} \quad \mathrm{A/m^2}.$$
 
 ---
 
@@ -199,16 +155,7 @@ therefore
 
 The current-dependent rise-time constant is modeled as
 
-\[
-\tau_r(J)
-=
-386.98
-\left(
-\frac{J}{10^{11}}
-\right)^{-1.223}
-+
-8.88,
-\]
+$$\tau_r(J) = 386.98 \left( \frac{J}{10^{11}} \right)^{-1.223} + 8.88,$$
 
 with time measured in picoseconds.
 
@@ -220,28 +167,11 @@ Higher current density produces a smaller rise-time constant and therefore faste
 
 The integration state is calculated using
 
-\[
-m_{\mathrm{int}}
-=
-A(J)
-\tanh
-\left[
-\frac{T_{\mathrm{eff}}}{\tau_r(J)}
-+
-\tanh^{-1}
-\left(
-\frac{m}{A(J)}
-\right)
-\right].
-\]
+$$m_{\mathrm{int}} = A(J) \tanh \left[ \frac{T_{\mathrm{eff}}}{\tau_r(J)} + \tanh^{-1} \left( \frac{m}{A(J)} \right) \right].$$
 
 The effective pulse width is controlled by the **normal drive**:
 
-\[
-T_{\mathrm{eff}}
-=
-d\,T_{\mathrm{pulse}}.
-\]
+$$T_{\mathrm{eff}} = d\,T_{\mathrm{pulse}}.$$
 
 The default maximum pulse width is:
 
@@ -257,28 +187,11 @@ Therefore, the normal sigmoid affects both the current density and effective pul
 
 The leakage factor is
 
-\[
-B
-=
-\exp
-\left(
--\frac{\Delta t}{\tau_l}
-\right).
-\]
+$$B = \exp \left( -\frac{\Delta t}{\tau_l} \right).$$
 
 The leakage state is
 
-\[
-m_{\mathrm{leak}}
-=
-\frac{
-mB
-}{
-\sqrt{
-1-m^2(1-B^2)
-}
-}.
-\]
+$$m_{\mathrm{leak}} = \frac{ mB }{ \sqrt{ 1-m^2(1-B^2) } }.$$
 
 The default timing parameters are:
 
@@ -293,33 +206,16 @@ TAU_LEAK_PS = 503.8
 
 The key modification in this version is that the **parametric sigmoid gate**, rather than the normal drive, controls the final mixing of integration and leakage:
 
-\[
-\boxed{
-m_{\mathrm{new}}
-=
-g(z)m_{\mathrm{int}}
-+
-\left[
-1-g(z)
-\right]m_{\mathrm{leak}}
-}
-\]
+$$\boxed{ m_{\mathrm{new}} = g(z)m_{\mathrm{int}} + \left[ 1-g(z) \right]m_{\mathrm{leak}} }$$
 
 where
 
-\[
-g(z)
-=
-\sigma
-\left(
-k(z-z_0)
-\right).
-\]
+$$g(z) = \sigma \left( k(z-z_0) \right).$$
 
 Therefore:
 
-- \(g\rightarrow1\): state follows mostly integration,
-- \(g\rightarrow0\): state follows mostly leakage.
+- $g\rightarrow1$: state follows mostly integration,
+- $g\rightarrow0$: state follows mostly leakage.
 
 The normal drive remains unchanged and is still used only in the physical pulse-strength calculations.
 
@@ -337,21 +233,15 @@ input_scale = 1.0
 
 then
 
-\[
-g(z)=\sigma(z)
-\]
+$$g(z)=\sigma(z)$$
 
 and
 
-\[
-d(z)=\sigma(z).
-\]
+$$d(z)=\sigma(z).$$
 
 Thus,
 
-\[
-g(z)=d(z).
-\]
+$$g(z)=d(z).$$
 
 In this case, the integrate/leak interpolation is mathematically the same as the previous implementation that directly used `drive`.
 
@@ -395,20 +285,11 @@ The output layer contains 10 spiking neurons.
 
 Output spikes are summed across simulation time:
 
-\[
-S_c
-=
-\sum_{t=1}^{T}
-s_c[t].
-\]
+$$S_c = \sum_{t=1}^{T} s_c[t].$$
 
 The predicted class is
 
-\[
-\hat{y}
-=
-\arg\max_c S_c.
-\]
+$$\hat{y} = \arg\max_c S_c.$$
 
 Cross-entropy loss is applied to the output spike counts.
 
@@ -458,9 +339,7 @@ transform = transforms.ToTensor()
 
 so pixel values remain in the range
 
-\[
-[0,1].
-\]
+$$[0,1].$$
 
 ---
 
@@ -605,8 +484,8 @@ This isolates the effect of the integrate/leak transition sharpness without chan
 | `PULSE_WIDTH_PS` | 30 ps | Maximum pulse width |
 | `DT_PS` | 100 ps | Simulation/leak interval |
 | `TAU_LEAK_PS` | 503.8 ps | Leakage time constant |
-| `J_MIN` | \(10^{11}\) A/m² | Minimum current density |
-| `J_MAX` | \(10^{12}\) A/m² | Maximum current density |
+| `J_MIN` | $10^{11}$ A/m² | Minimum current density |
+| `J_MAX` | $10^{12}$ A/m² | Maximum current density |
 | `input_scale` | 1.0 | Normal drive sigmoid scale |
 | `GATE_SIGMOID_SLOPE` | 1.0 | Integrate/leak gate steepness |
 | `GATE_SIGMOID_THRESHOLD` | 0.0 | Integrate/leak transition point |
@@ -618,40 +497,16 @@ This isolates the effect of the integrate/leak transition sharpness without chan
 
 The model uses two distinct nonlinear mappings:
 
-\[
-\boxed{
-d(z)=\sigma(z)
-}
-\]
+$$\boxed{ d(z)=\sigma(z) }$$
 
 for physical pulse strength, and
 
-\[
-\boxed{
-g(z)=\sigma(k(z-z_0))
-}
-\]
+$$\boxed{ g(z)=\sigma(k(z-z_0)) }$$
 
 for integrate/leak selection.
 
 The complete neuron update is therefore
 
-\[
-\boxed{
-m_{t+1}
-=
-g(z_t)
-\,f_{\mathrm{integrate}}
-\left(
-m_t,d(z_t)
-\right)
-+
-\left[
-1-g(z_t)
-\right]
-f_{\mathrm{leak}}
-(m_t)
-}
-\]
+$$\boxed{ m_{t+1} = g(z_t) \,f_{\mathrm{integrate}} \left( m_t,d(z_t) \right) + \left[ 1-g(z_t) \right] f_{\mathrm{leak}} (m_t) }$$
 
 This structure allows the integrate/leak switching behavior to be made progressively sharper without modifying the original drive, current-density mapping, pulse-width mapping, or MTJ device equations.
