@@ -1,0 +1,348 @@
+Using CPU.
+
+Model:
+SpikingMNISTModel(
+  (flatten): Flatten(start_dim=1, end_dim=-1)
+  (fc1): Linear(in_features=784, out_features=128, bias=True)
+  (lif1): Leaky()
+  (fc2): Linear(in_features=128, out_features=64, bias=True)
+  (lif2): Leaky()
+  (fc3): Linear(in_features=64, out_features=10, bias=True)
+  (lif3): Leaky()
+)
+
+Trainable parameters: 109386
+
+====================================================
+Epoch 1/10
+====================================================
+Epoch 1 | Batch    0/938 | Loss 16.5105 | Spike FR: 0.050, 0.007, 0.002
+Epoch 1 | Batch  100/938 | Loss 8.9394 | Spike FR: 0.082, 0.033, 0.058
+Epoch 1 | Batch  200/938 | Loss 2.6485 | Spike FR: 0.084, 0.035, 0.049
+Epoch 1 | Batch  300/938 | Loss 1.3063 | Spike FR: 0.084, 0.036, 0.050
+Epoch 1 | Batch  400/938 | Loss 0.8168 | Spike FR: 0.079, 0.030, 0.041
+Epoch 1 | Batch  500/938 | Loss 0.5681 | Spike FR: 0.087, 0.035, 0.046
+Epoch 1 | Batch  600/938 | Loss 0.6243 | Spike FR: 0.090, 0.039, 0.049
+Epoch 1 | Batch  700/938 | Loss 0.2301 | Spike FR: 0.076, 0.032, 0.041
+Epoch 1 | Batch  800/938 | Loss 0.6151 | Spike FR: 0.072, 0.033, 0.041
+Epoch 1 | Batch  900/938 | Loss 0.4632 | Spike FR: 0.078, 0.032, 0.040
+
+---------------- TRAIN ----------------
+Loss:           2.9703
+Accuracy:       81.19%
+
+Output spike firing rates:
+Layer 1:        0.0780
+Layer 2:        0.0322
+Layer 3:        0.0471
+
+---------------- TEST ----------------
+Accuracy:       91.42%
+
+Output spike firing rates:
+Layer 1:        0.0800
+Layer 2:        0.0349
+Layer 3:        0.0460
+
+Best model saved.
+
+====================================================
+Epoch 2/10
+====================================================
+Epoch 2 | Batch    0/938 | Loss 0.6993 | Spike FR: 0.079, 0.034, 0.045
+Epoch 2 | Batch  100/938 | Loss 0.2193 | Spike FR: 0.078, 0.032, 0.042
+Epoch 2 | Batch  200/938 | Loss 0.4912 | Spike FR: 0.083, 0.036, 0.047
+Epoch 2 | Batch  300/938 | Loss 0.2560 | Spike FR: 0.086, 0.034, 0.040
+Epoch 2 | Batch  400/938 | Loss 0.4334 | Spike FR: 0.080, 0.035, 0.046
+Epoch 2 | Batch  500/938 | Loss 0.4377 | Spike FR: 0.075, 0.035, 0.048
+Epoch 2 | Batch  600/938 | Loss 0.1069 | Spike FR: 0.073, 0.032, 0.045
+Epoch 2 | Batch  700/938 | Loss 0.3905 | Spike FR: 0.078, 0.034, 0.048
+Epoch 2 | Batch  800/938 | Loss 0.1237 | Spike FR: 0.078, 0.032, 0.044
+Epoch 2 | Batch  900/938 | Loss 0.5178 | Spike FR: 0.078, 0.032, 0.041
+
+---------------- TRAIN ----------------
+Loss:           0.3779
+Accuracy:       93.46%
+
+Output spike firing rates:
+Layer 1:        0.0789
+Layer 2:        0.0339
+Layer 3:        0.0451
+
+---------------- TEST ----------------
+Accuracy:       92.81%
+
+Output spike firing rates:
+Layer 1:        0.0797
+Layer 2:        0.0330
+Layer 3:        0.0434
+
+Best model saved.
+
+====================================================
+Epoch 3/10
+====================================================
+Epoch 3 | Batch    0/938 | Loss 0.2881 | Spike FR: 0.077, 0.031, 0.042
+Epoch 3 | Batch  100/938 | Loss 0.1125 | Spike FR: 0.076, 0.034, 0.048
+Epoch 3 | Batch  200/938 | Loss 0.1604 | Spike FR: 0.079, 0.035, 0.051
+Epoch 3 | Batch  300/938 | Loss 0.0246 | Spike FR: 0.088, 0.041, 0.059
+Epoch 3 | Batch  400/938 | Loss 0.2711 | Spike FR: 0.082, 0.039, 0.052
+Epoch 3 | Batch  500/938 | Loss 0.2179 | Spike FR: 0.081, 0.037, 0.051
+Epoch 3 | Batch  600/938 | Loss 0.5525 | Spike FR: 0.087, 0.042, 0.059
+Epoch 3 | Batch  700/938 | Loss 0.0933 | Spike FR: 0.080, 0.035, 0.050
+Epoch 3 | Batch  800/938 | Loss 1.1922 | Spike FR: 0.082, 0.038, 0.051
+Epoch 3 | Batch  900/938 | Loss 0.2049 | Spike FR: 0.080, 0.041, 0.057
+
+---------------- TRAIN ----------------
+Loss:           0.2773
+Accuracy:       94.86%
+
+Output spike firing rates:
+Layer 1:        0.0831
+Layer 2:        0.0382
+Layer 3:        0.0531
+
+---------------- TEST ----------------
+Accuracy:       92.75%
+
+Output spike firing rates:
+Layer 1:        0.0805
+Layer 2:        0.0372
+Layer 3:        0.0520
+
+====================================================
+Epoch 4/10
+====================================================
+Epoch 4 | Batch    0/938 | Loss 0.2527 | Spike FR: 0.078, 0.035, 0.049
+Epoch 4 | Batch  100/938 | Loss 0.2933 | Spike FR: 0.081, 0.035, 0.046
+Epoch 4 | Batch  200/938 | Loss 0.3795 | Spike FR: 0.081, 0.039, 0.059
+Epoch 4 | Batch  300/938 | Loss 0.0660 | Spike FR: 0.085, 0.038, 0.056
+Epoch 4 | Batch  400/938 | Loss 0.3182 | Spike FR: 0.088, 0.043, 0.063
+Epoch 4 | Batch  500/938 | Loss 0.1851 | Spike FR: 0.078, 0.038, 0.056
+Epoch 4 | Batch  600/938 | Loss 0.3356 | Spike FR: 0.077, 0.034, 0.047
+Epoch 4 | Batch  700/938 | Loss 0.3651 | Spike FR: 0.082, 0.037, 0.050
+Epoch 4 | Batch  800/938 | Loss 0.4219 | Spike FR: 0.084, 0.035, 0.051
+Epoch 4 | Batch  900/938 | Loss 0.1985 | Spike FR: 0.083, 0.038, 0.053
+
+---------------- TRAIN ----------------
+Loss:           0.2190
+Accuracy:       95.79%
+
+Output spike firing rates:
+Layer 1:        0.0812
+Layer 2:        0.0377
+Layer 3:        0.0538
+
+---------------- TEST ----------------
+Accuracy:       96.07%
+
+Output spike firing rates:
+Layer 1:        0.0848
+Layer 2:        0.0393
+Layer 3:        0.0571
+
+Best model saved.
+
+====================================================
+Epoch 5/10
+====================================================
+Epoch 5 | Batch    0/938 | Loss 0.3549 | Spike FR: 0.083, 0.039, 0.056
+Epoch 5 | Batch  100/938 | Loss 0.1003 | Spike FR: 0.075, 0.037, 0.054
+Epoch 5 | Batch  200/938 | Loss 0.0921 | Spike FR: 0.086, 0.042, 0.065
+Epoch 5 | Batch  300/938 | Loss 0.1743 | Spike FR: 0.085, 0.040, 0.059
+Epoch 5 | Batch  400/938 | Loss 0.1885 | Spike FR: 0.079, 0.034, 0.046
+Epoch 5 | Batch  500/938 | Loss 0.1421 | Spike FR: 0.085, 0.042, 0.068
+Epoch 5 | Batch  600/938 | Loss 0.0261 | Spike FR: 0.079, 0.039, 0.061
+Epoch 5 | Batch  700/938 | Loss 0.1688 | Spike FR: 0.083, 0.038, 0.059
+Epoch 5 | Batch  800/938 | Loss 0.1315 | Spike FR: 0.080, 0.039, 0.061
+Epoch 5 | Batch  900/938 | Loss 0.2651 | Spike FR: 0.082, 0.038, 0.061
+
+---------------- TRAIN ----------------
+Loss:           0.1794
+Accuracy:       96.40%
+
+Output spike firing rates:
+Layer 1:        0.0810
+Layer 2:        0.0386
+Layer 3:        0.0586
+
+---------------- TEST ----------------
+Accuracy:       93.74%
+
+Output spike firing rates:
+Layer 1:        0.0853
+Layer 2:        0.0395
+Layer 3:        0.0640
+
+====================================================
+Epoch 6/10
+====================================================
+Epoch 6 | Batch    0/938 | Loss 0.3166 | Spike FR: 0.087, 0.038, 0.055
+Epoch 6 | Batch  100/938 | Loss 0.0086 | Spike FR: 0.087, 0.039, 0.061
+Epoch 6 | Batch  200/938 | Loss 0.3164 | Spike FR: 0.084, 0.040, 0.061
+Epoch 6 | Batch  300/938 | Loss 0.1549 | Spike FR: 0.083, 0.037, 0.060
+Epoch 6 | Batch  400/938 | Loss 0.0606 | Spike FR: 0.081, 0.038, 0.058
+Epoch 6 | Batch  500/938 | Loss 0.0080 | Spike FR: 0.084, 0.039, 0.058
+Epoch 6 | Batch  600/938 | Loss 0.5370 | Spike FR: 0.085, 0.045, 0.072
+Epoch 6 | Batch  700/938 | Loss 0.0650 | Spike FR: 0.086, 0.041, 0.062
+Epoch 6 | Batch  800/938 | Loss 0.2036 | Spike FR: 0.084, 0.039, 0.060
+Epoch 6 | Batch  900/938 | Loss 0.1134 | Spike FR: 0.085, 0.039, 0.060
+
+---------------- TRAIN ----------------
+Loss:           0.1508
+Accuracy:       96.81%
+
+Output spike firing rates:
+Layer 1:        0.0847
+Layer 2:        0.0410
+Layer 3:        0.0639
+
+---------------- TEST ----------------
+Accuracy:       95.77%
+
+Output spike firing rates:
+Layer 1:        0.0864
+Layer 2:        0.0431
+Layer 3:        0.0679
+
+====================================================
+Epoch 7/10
+====================================================
+Epoch 7 | Batch    0/938 | Loss 0.4893 | Spike FR: 0.084, 0.044, 0.067
+Epoch 7 | Batch  100/938 | Loss 0.1045 | Spike FR: 0.081, 0.042, 0.061
+Epoch 7 | Batch  200/938 | Loss 0.0092 | Spike FR: 0.090, 0.046, 0.078
+Epoch 7 | Batch  300/938 | Loss 0.0303 | Spike FR: 0.085, 0.043, 0.069
+Epoch 7 | Batch  400/938 | Loss 0.0552 | Spike FR: 0.084, 0.043, 0.073
+Epoch 7 | Batch  500/938 | Loss 0.0464 | Spike FR: 0.087, 0.046, 0.076
+Epoch 7 | Batch  600/938 | Loss 0.1521 | Spike FR: 0.090, 0.046, 0.074
+Epoch 7 | Batch  700/938 | Loss 0.2691 | Spike FR: 0.083, 0.037, 0.061
+Epoch 7 | Batch  800/938 | Loss 0.0513 | Spike FR: 0.086, 0.041, 0.069
+Epoch 7 | Batch  900/938 | Loss 0.0165 | Spike FR: 0.086, 0.041, 0.063
+
+---------------- TRAIN ----------------
+Loss:           0.1344
+Accuracy:       97.20%
+
+Output spike firing rates:
+Layer 1:        0.0842
+Layer 2:        0.0422
+Layer 3:        0.0681
+
+---------------- TEST ----------------
+Accuracy:       95.92%
+
+Output spike firing rates:
+Layer 1:        0.0836
+Layer 2:        0.0426
+Layer 3:        0.0716
+
+====================================================
+Epoch 8/10
+====================================================
+Epoch 8 | Batch    0/938 | Loss 0.0485 | Spike FR: 0.081, 0.041, 0.068
+Epoch 8 | Batch  100/938 | Loss 0.1039 | Spike FR: 0.091, 0.044, 0.069
+Epoch 8 | Batch  200/938 | Loss 0.0848 | Spike FR: 0.086, 0.043, 0.068
+Epoch 8 | Batch  300/938 | Loss 0.1213 | Spike FR: 0.082, 0.040, 0.067
+Epoch 8 | Batch  400/938 | Loss 0.0617 | Spike FR: 0.081, 0.039, 0.064
+Epoch 8 | Batch  500/938 | Loss 0.2476 | Spike FR: 0.089, 0.045, 0.072
+Epoch 8 | Batch  600/938 | Loss 0.1217 | Spike FR: 0.082, 0.040, 0.069
+Epoch 8 | Batch  700/938 | Loss 0.1240 | Spike FR: 0.081, 0.037, 0.060
+Epoch 8 | Batch  800/938 | Loss 0.0613 | Spike FR: 0.089, 0.042, 0.068
+Epoch 8 | Batch  900/938 | Loss 0.0376 | Spike FR: 0.082, 0.042, 0.070
+
+---------------- TRAIN ----------------
+Loss:           0.1135
+Accuracy:       97.49%
+
+Output spike firing rates:
+Layer 1:        0.0856
+Layer 2:        0.0419
+Layer 3:        0.0695
+
+---------------- TEST ----------------
+Accuracy:       95.81%
+
+Output spike firing rates:
+Layer 1:        0.0834
+Layer 2:        0.0419
+Layer 3:        0.0703
+
+====================================================
+Epoch 9/10
+====================================================
+Epoch 9 | Batch    0/938 | Loss 0.1437 | Spike FR: 0.082, 0.041, 0.070
+Epoch 9 | Batch  100/938 | Loss 0.0137 | Spike FR: 0.078, 0.039, 0.069
+Epoch 9 | Batch  200/938 | Loss 0.0258 | Spike FR: 0.082, 0.043, 0.071
+Epoch 9 | Batch  300/938 | Loss 0.2537 | Spike FR: 0.078, 0.041, 0.067
+Epoch 9 | Batch  400/938 | Loss 0.4052 | Spike FR: 0.082, 0.045, 0.076
+Epoch 9 | Batch  500/938 | Loss 0.1424 | Spike FR: 0.087, 0.043, 0.074
+Epoch 9 | Batch  600/938 | Loss 0.0083 | Spike FR: 0.091, 0.046, 0.077
+Epoch 9 | Batch  700/938 | Loss 0.2587 | Spike FR: 0.090, 0.047, 0.083
+Epoch 9 | Batch  800/938 | Loss 0.0080 | Spike FR: 0.085, 0.044, 0.077
+Epoch 9 | Batch  900/938 | Loss 0.1924 | Spike FR: 0.086, 0.046, 0.079
+
+---------------- TRAIN ----------------
+Loss:           0.0977
+Accuracy:       97.83%
+
+Output spike firing rates:
+Layer 1:        0.0849
+Layer 2:        0.0445
+Layer 3:        0.0749
+
+---------------- TEST ----------------
+Accuracy:       96.53%
+
+Output spike firing rates:
+Layer 1:        0.0861
+Layer 2:        0.0440
+Layer 3:        0.0755
+
+Best model saved.
+
+====================================================
+Epoch 10/10
+====================================================
+Epoch 10 | Batch    0/938 | Loss 0.0356 | Spike FR: 0.087, 0.045, 0.077
+Epoch 10 | Batch  100/938 | Loss 0.0232 | Spike FR: 0.087, 0.045, 0.077
+Epoch 10 | Batch  200/938 | Loss 0.0192 | Spike FR: 0.087, 0.047, 0.082
+Epoch 10 | Batch  300/938 | Loss 0.0453 | Spike FR: 0.079, 0.042, 0.077
+Epoch 10 | Batch  400/938 | Loss 0.1444 | Spike FR: 0.084, 0.040, 0.067
+Epoch 10 | Batch  500/938 | Loss 0.0004 | Spike FR: 0.085, 0.045, 0.082
+Epoch 10 | Batch  600/938 | Loss 0.0229 | Spike FR: 0.081, 0.042, 0.072
+Epoch 10 | Batch  700/938 | Loss 0.0016 | Spike FR: 0.084, 0.045, 0.076
+Epoch 10 | Batch  800/938 | Loss 0.0132 | Spike FR: 0.084, 0.040, 0.071
+Epoch 10 | Batch  900/938 | Loss 0.0716 | Spike FR: 0.083, 0.045, 0.076
+
+---------------- TRAIN ----------------
+Loss:           0.0911
+Accuracy:       98.01%
+
+Output spike firing rates:
+Layer 1:        0.0847
+Layer 2:        0.0442
+Layer 3:        0.0766
+
+---------------- TEST ----------------
+Accuracy:       95.45%
+
+Output spike firing rates:
+Layer 1:        0.0831
+Layer 2:        0.0447
+Layer 3:        0.0785
+
+====================================================
+Training complete
+====================================================
+Best Test Accuracy: 96.53%
+
+Final Test Accuracy: 96.53%
+
+Final output firing rates:
+Layer 1 = 0.0861
+Layer 2 = 0.0440
+Layer 3 = 0.0755
+
+Spike-count Test Accuracy: 96.87%
+
+Model saved as mnist_snn_mlp.pth

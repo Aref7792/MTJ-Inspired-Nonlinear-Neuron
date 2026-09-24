@@ -1,0 +1,71 @@
+Using device: cpu
+
+Model:
+HardMTJSpikingMLP(
+  (flatten): Flatten(start_dim=1, end_dim=-1)
+  (fc1): Linear(in_features=784, out_features=128, bias=True)
+  (neuron1): HardMTJNeuron()
+  (fc2): Linear(in_features=128, out_features=64, bias=True)
+  (neuron2): HardMTJNeuron()
+  (fc3): Linear(in_features=64, out_features=10, bias=True)
+  (neuron3): HardMTJNeuron()
+)
+
+Trainable parameters: 109386
+
+====================================================
+Epoch 1/10
+====================================================
+Epoch 1 | Batch    0/938 | Loss 11.3200 | Spike FR: 0.404, 0.384, 0.300 | Pulse Rate: 0.537, 0.563, 0.447
+Epoch 1 | Batch  100/938 | Loss 1.0587 | Spike FR: 0.332, 0.337, 0.366 | Pulse Rate: 0.394, 0.454, 0.588
+Epoch 1 | Batch  200/938 | Loss 0.7659 | Spike FR: 0.342, 0.316, 0.299 | Pulse Rate: 0.396, 0.421, 0.496
+Epoch 1 | Batch  300/938 | Loss 0.4596 | Spike FR: 0.312, 0.269, 0.276 | Pulse Rate: 0.360, 0.367, 0.472
+Epoch 1 | Batch  400/938 | Loss 0.4155 | Spike FR: 0.305, 0.285, 0.330 | Pulse Rate: 0.350, 0.384, 0.534
+Epoch 1 | Batch  500/938 | Loss 0.3418 | Spike FR: 0.303, 0.284, 0.319 | Pulse Rate: 0.345, 0.373, 0.519
+Epoch 1 | Batch  600/938 | Loss 0.2343 | Spike FR: 0.299, 0.269, 0.252 | Pulse Rate: 0.340, 0.359, 0.445
+Epoch 1 | Batch  700/938 | Loss 0.2820 | Spike FR: 0.293, 0.283, 0.280 | Pulse Rate: 0.338, 0.378, 0.471
+Epoch 1 | Batch  800/938 | Loss 0.5420 | Spike FR: 0.299, 0.284, 0.246 | Pulse Rate: 0.339, 0.374, 0.427
+Epoch 1 | Batch  900/938 | Loss 0.5018 | Spike FR: 0.306, 0.310, 0.342 | Pulse Rate: 0.343, 0.398, 0.551
+
+---------------- TRAIN ----------------
+Loss:           0.5774
+Accuracy:       86.85%
+
+Output spike firing rates:
+Layer 1:        0.3190
+Layer 2:        0.2981
+Layer 3:        0.3160
+
+Hard pulse rates:
+Layer 1:        0.3688
+Layer 2:        0.3966
+Layer 3:        0.5141
+
+---------------- TEST ----------------
+Accuracy:       91.90%
+
+Output spike firing rates:
+Layer 1:        0.3070
+Layer 2:        0.3135
+Layer 3:        0.3087
+
+Hard pulse rates:
+Layer 1:        0.3466
+Layer 2:        0.4047
+Layer 3:        0.4964
+
+Best model saved.
+
+====================================================
+Epoch 2/10
+====================================================
+Epoch 2 | Batch    0/938 | Loss 0.3861 | Spike FR: 0.307, 0.309, 0.306 | Pulse Rate: 0.348, 0.400, 0.496
+Epoch 2 | Batch  100/938 | Loss 0.5751 | Spike FR: 0.305, 0.306, 0.280 | Pulse Rate: 0.344, 0.397, 0.460
+Epoch 2 | Batch  200/938 | Loss 0.1844 | Spike FR: 0.294, 0.319, 0.318 | Pulse Rate: 0.330, 0.407, 0.505
+Epoch 2 | Batch  300/938 | Loss 0.2930 | Spike FR: 0.304, 0.280, 0.246 | Pulse Rate: 0.340, 0.360, 0.417
+Epoch 2 | Batch  400/938 | Loss 0.1894 | Spike FR: 0.300, 0.269, 0.270 | Pulse Rate: 0.336, 0.349, 0.451
+Epoch 2 | Batch  500/938 | Loss 0.2666 | Spike FR: 0.299, 0.288, 0.273 | Pulse Rate: 0.334, 0.372, 0.456
+Epoch 2 | Batch  600/938 | Loss 0.2113 | Spike FR: 0.282, 0.268, 0.261 | Pulse Rate: 0.315, 0.350, 0.442
+Epoch 2 | Batch  700/938 | Loss 0.4069 | Spike FR: 0.299, 0.302, 0.296 | Pulse Rate: 0.332, 0.384, 0.492
+Epoch 2 | Batch  800/938 | Loss 0.2100 | Spike FR: 0.308, 0.296, 0.290 | Pulse Rate: 0.342, 0.380, 0.470
+Epoch 2 | Batch  900/938 | Loss 0.5085 | Spike FR: 0.309, 0.307, 0.287 | Pulse Rate: 0.342, 0.391, 0.459

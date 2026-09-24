@@ -1,0 +1,139 @@
+<title>BLIF Baseline Run</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#F4F6F8; --surface:#FFFFFF; --ink:#15202B; --muted:#5B6878; --line:#DCE2E8;
+  --train:#1F6F8B; --test:#C4761A; --good:#2E7D4F; --warn:#B4541A;
+  --l1:#1F6F8B; --l2:#7A5AA6; --l3:#C4761A;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10161C; --surface:#18212A; --ink:#E6ECF1; --muted:#95A3B2; --line:#2A3642;
+    --train:#5BB3CF; --test:#E9A04A; --good:#6CC894; --warn:#F0935A;
+    --l1:#5BB3CF; --l2:#B39AE0; --l3:#E9A04A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10161C; --surface:#18212A; --ink:#E6ECF1; --muted:#95A3B2; --line:#2A3642;
+  --train:#5BB3CF; --test:#E9A04A; --good:#6CC894; --warn:#F0935A;
+  --l1:#5BB3CF; --l2:#B39AE0; --l3:#E9A04A;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding-inline:20px;padding-block:32px 56px;display:flex;flex-direction:column;gap:28px}
+.mono,code{font-family:"IBM Plex Mono",ui-monospace,Consolas,monospace}
+header{display:flex;flex-direction:column;gap:6px}
+.eyebrow{font:500 12px/1 "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:28px;line-height:1.2;margin:0;font-weight:600;text-wrap:balance}
+h2{font-size:17px;margin:0;font-weight:600}
+p{margin:0;max-width:68ch}
+.sub{color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.stat .k{font-size:12.5px;color:var(--muted)}
+.stat .v{font:500 24px/1.1 "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.stat .d{font-size:12.5px;font-family:"IBM Plex Mono",monospace}
+.down{color:var(--warn)} .up{color:var(--good)}
+section{display:flex;flex-direction:column;gap:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:720px){.grid2{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:6px;border-radius:2px}
+svg{width:100%;height:auto;display:block}
+svg text{fill:var(--muted);font:11px "IBM Plex Mono",monospace}
+.tablebox{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:13.5px}
+th,td{padding:8px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-weight:500;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+th:first-child,td:first-child{text-align:left}
+tr:last-child td{border-bottom:0}
+td.best{color:var(--good);font-weight:600}
+.notes{display:flex;flex-direction:column;gap:10px;margin:0;padding-left:18px}
+.notes li{max-width:75ch}
+.cmp td:nth-child(4){font-family:"IBM Plex Mono",monospace}
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">MTJ-Inspired-Nonlinear-Neuron · branch test_run · BLIF/blif.py</span>
+  <h1>BLIF baseline run, reproduced on CPU</h1>
+  <p class="sub">snnTorch Leaky neurons (β = 0.9), 784 → 128 → 64 → 10, 25 time steps, 10 epochs, SGD lr 0.01, seed 42. Unmodified code, run 2026-09-21 on a laptop CPU (torch 2.10 CPU build).</p>
+</header>
+
+<div class="stats">
+  <div class="stat"><span class="k">Best test accuracy (epoch 9)</span><span class="v">96.53%</span><span class="d down">−0.40 vs README 96.93%</span></div>
+  <div class="stat"><span class="k">Last-epoch test accuracy</span><span class="v">95.45%</span><span class="d down">epoch 10 dropped 1.08 pts</span></div>
+  <div class="stat"><span class="k">Spike-count test accuracy</span><span class="v">96.87%</span><span class="d down">−0.25 vs README 97.12%</span></div>
+  <div class="stat"><span class="k">Final train accuracy</span><span class="v">98.01%</span><span class="d">loss 0.0911</span></div>
+</div>
+
+<section>
+  <div class="grid2">
+    <div class="panel">
+      <h2>Accuracy per epoch</h2>
+      <div class="legend"><span><i style="background:var(--train)"></i>Train</span><span><i style="background:var(--test)"></i>Test</span></div>
+      <svg id="acc" viewBox="0 0 440 260" role="img" aria-label="Train and test accuracy per epoch"></svg>
+    </div>
+    <div class="panel">
+      <h2>Test firing rate per layer</h2>
+      <div class="legend"><span><i style="background:var(--l1)"></i>Layer 1 (128)</span><span><i style="background:var(--l2)"></i>Layer 2 (64)</span><span><i style="background:var(--l3)"></i>Layer 3 (10)</span></div>
+      <svg id="fr" viewBox="0 0 440 260" role="img" aria-label="Test firing rate per layer per epoch"></svg>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Epoch log</h2>
+  <div class="tablebox"><table id="tbl">
+    <thead><tr><th>Epoch</th><th>Train loss</th><th>Train acc</th><th>Test acc</th><th>FR L1</th><th>FR L2</th><th>FR L3</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Against the README</h2>
+  <div class="tablebox"><table class="cmp">
+    <thead><tr><th>Metric</th><th>README</th><th>This run</th><th>Δ</th></tr></thead>
+    <tbody>
+      <tr><td>Best test accuracy</td><td>96.93%</td><td>96.53%</td><td>−0.40</td></tr>
+      <tr><td>Spike-count test accuracy</td><td>97.12%</td><td>96.87%</td><td>−0.25</td></tr>
+      <tr><td>Firing rate, layer 1</td><td>0.0874</td><td>0.0861</td><td>−0.0013</td></tr>
+      <tr><td>Firing rate, layer 2</td><td>0.0492</td><td>0.0440</td><td>−0.0052</td></tr>
+      <tr><td>Firing rate, layer 3</td><td>0.0872</td><td>0.0755</td><td>−0.0117</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>What to take from it</h2>
+  <ul class="notes">
+    <li><b>Reproduces within half a point.</b> Same seed, but CPU vs GPU kernels are not bit-identical, so a 0.2–0.4 pt gap is expected run-to-run noise, not a bug.</li>
+    <li><b>“Final” accuracy is really the best checkpoint.</b> The script reloads the best test-set checkpoint before reporting “Final Test Accuracy”, so best and final always match. The genuine last epoch scored 95.45%. Selecting on the test set also inflates the headline number; a validation split would fix both.</li>
+    <li><b>Test accuracy is noisy.</b> It swings 93.7% → 96.5% → 95.5% while train accuracy climbs steadily — consistent with SGD at lr 0.01. The MTJ scripts use Adam at 1e-3, so the BLIF-vs-MTJ comparison is not like-for-like yet.</li>
+    <li><b>Sparse activity holds.</b> Layer rates stay at 0.04–0.09, far below the 0.2–0.4 seen in the MTJ models' early logs.</li>
+  </ul>
+</section>
+</div>
+
+<script>
+const rows=[[1,2.9703,81.19,91.42,0.08,0.0349,0.046],[2,0.3779,93.46,92.81,0.0797,0.033,0.0434],[3,0.2773,94.86,92.75,0.0805,0.0372,0.052],[4,0.219,95.79,96.07,0.0848,0.0393,0.0571],[5,0.1794,96.4,93.74,0.0853,0.0395,0.064],[6,0.1508,96.81,95.77,0.0864,0.0431,0.0679],[7,0.1344,97.2,95.92,0.0836,0.0426,0.0716],[8,0.1135,97.49,95.81,0.0834,0.0419,0.0703],[9,0.0977,97.83,96.53,0.0861,0.044,0.0755],[10,0.0911,98.01,95.45,0.0831,0.0447,0.0785]];
+const NS="http://www.w3.org/2000/svg";
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e}
+function chart(id,series,ymin,ymax,ticks,fmt){
+  const s=document.getElementById(id),L=44,R=14,T=12,B=34,W=440,H=260;
+  const x=e=>L+(e-1)*(W-L-R)/9, y=v=>T+(ymax-v)*(H-T-B)/(ymax-ymin);
+  ticks.forEach(v=>{el("line",{x1:L,x2:W-R,y1:y(v),y2:y(v),stroke:"var(--line)","stroke-width":1},s);const t=el("text",{x:L-6,y:y(v)+4,"text-anchor":"end"},s);t.textContent=fmt(v)});
+  for(let e=1;e<=10;e++){const t=el("text",{x:x(e),y:H-B+18,"text-anchor":"middle"},s);t.textContent=e}
+  const lab=el("text",{x:(L+W-R)/2,y:H-2,"text-anchor":"middle"},s);lab.textContent="epoch";
+  series.forEach(([col,color])=>{
+    el("polyline",{points:rows.map(r=>x(r[0])+","+y(r[col])).join(" "),fill:"none",stroke:color,"stroke-width":2,"stroke-linejoin":"round"},s);
+    rows.forEach(r=>{const c=el("circle",{cx:x(r[0]),cy:y(r[col]),r:3,fill:color},s);const tt=el("title",{},c);tt.textContent="Epoch "+r[0]+": "+fmt(r[col])});
+  });
+}
+chart("acc",[[2,"var(--train)"],[3,"var(--test)"]],80,100,[80,85,90,95,100],v=>v%1?v.toFixed(2)+"%":v+"%");
+chart("fr",[[4,"var(--l1)"],[5,"var(--l2)"],[6,"var(--l3)"]],0,0.1,[0,0.025,0.05,0.075,0.1],v=>v===0?"0":v.toFixed(v*1000%10?4:3).replace(/0+$/,""));
+const tb=document.querySelector("#tbl tbody");
+rows.forEach(r=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${r[0]}</td><td>${r[1].toFixed(4)}</td><td>${r[2].toFixed(2)}%</td><td class="${r[0]===9?"best":""}">${r[3].toFixed(2)}%</td><td>${r[4].toFixed(4)}</td><td>${r[5].toFixed(4)}</td><td>${r[6].toFixed(4)}</td>`;tb.appendChild(tr)});
+</script>
